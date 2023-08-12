@@ -56,5 +56,5 @@ def calculate_dominant_color(image) -> tuple:
 
 
 if __name__ == "__main__":
-    image_path = 'example.jpeg'
+    image_path = 'image.jpeg'
     create_image_metadata(image_path)
