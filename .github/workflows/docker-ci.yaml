@@ -1,0 +1,23 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@latest
+
+      - name: Build and Test Docker Image
+        run: |
+          docker build -t captic-challenge .
+          docker run captic-challenge python3 -m unittest discover -v
+
+      - name: Update metadata.json
+        run: |
+          docker cp $(docker create captic-challenge):/usr/src/app/metadata.json metadata.json
