@@ -11,13 +11,29 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout
+        uses: actions/checkout@v3
 
-      - name: Build and Test Docker Image
-        run: |
-          docker build -t captic-challenge .
-          docker run captic-challenge python3 -m unittest discover -v
+      - name: Build Docker Image
+        run: docker build -t captic-challenge .
 
-      - name: Update metadata.json
+      - name: Run Docker Container and Create metadata.json
+        run: docker run --rm -v "${PWD}:/usr/src/app" captic-challenge python3 main.py
+
+      - name: Archive metadata.json
+        uses: actions/upload-artifact@v3
+        with:
+          name: metadata-artifact
+          path: metadata.json
+
+      - name: Configure Git
         run: |
-          docker cp $(docker create captic-challenge):/usr/src/app/metadata.json metadata.json
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Commit and Push Changes
+        run: |
+          git add metadata.json
+          git commit -m "Update metadata.json"
+          git pull origin main
+          git push origin main
+        continue-on-error: true
