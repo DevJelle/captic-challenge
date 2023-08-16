@@ -1,18 +1,18 @@
 {
-    "file_name": "image.jpeg",
+    "file_name": "example.jpeg",
     "width(px)": 769,
     "height(px)": 1024,
     "number_of_channels": 3,
     "image_size": 2362368,
     "data_type": "uint8",
     "mean_color(bgr)": {
-        "blue": 90,
-        "green": 103,
-        "red": 104
+        "blue": 113,
+        "green": 124,
+        "red": 130
     },
     "dominant_color(bgr)": {
-        "blue": "139",
-        "green": "141",
-        "red": "112"
+        "blue": "145",
+        "green": "150",
+        "red": "151"
     }
 }
